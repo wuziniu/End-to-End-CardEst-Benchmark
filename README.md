@@ -54,10 +54,15 @@ stats=# \i scripts/import/stats_index.sql
 ```
 
 
+## How to Generate Sub-Plan Queries?
+
+1. Enable `print_single_tbl_queries` or `print_sub_queries` to identify sub-plan queries of single-table or multi-table(`set print_single_tbl_queries=true` or `set print_sub_queries=true`). Then, send each query in the workload to PostgreSQL(An example can be found in  `scripts/py/send_imdb.py`). After that, we can find a new file `join_est_record_job.txt` in the *data directory* of Postgres.
+2. Run `scripts/py/gen_sub_queries_sql_IMDB.py` or `scripts/py/gen_sub_queries_sql_STATS.py` to generate the legitimate SQL queries for sub-plan queries. These SQL query generation files are hard-coded for these two datasets so they will work for a new dataset.
+
 
 ##  Integration of CardEst Methods into PostgreSQL
 
-1. Prepare [method].txt for a specific workload. Each line in [method].txt represents an estimate of a *sub-plan query*. An example for STATS-CEB is in `workloads/stats_CEB/sub_plan_queries/estimates`
+1. Prepare [method].txt for a specific workload. An example for STATS-CEB is in `workloads/stats_CEB/sub_plan_queries/estimates`
 
 2. Put [method].txt in the *data directory* of your Postgres. In this way, we can make sure Postgres could find [method].txt. Note that the path of data directory for docker deployment is `/var/lib/pgsql/13.1/data` in the container. The example command is:
 
@@ -75,11 +80,6 @@ stats=# SET join_est_no=0 ##for multi-table
 stats=# SET ml_cardest_fname='[method_for_single_table].txt' ## for single table
 stats=# SET ml_joinest_fname='[method_for_multi_table].txt' ## for multi-table
 ```
-
-## How to Generate Sub-Plan Queries?
-
-1. Enable `print_single_tbl_queries` or `print_sub_queries` to identify sub-plan queries of single-table or multi-table(`set print_single_tbl_queries=true` or `set print_sub_queries=true`). Then, send each query in the workload to PostgreSQL(An example can be found in  `scripts/py/send_imdb.py`). After that, we can find a new file `join_est_record_job.txt` in the *data directory* of Postgres.
-2. Run `scripts/py/gen_sub_queries_sql_IMDB.py` or `scripts/py/gen_sub_queries_sql_STATS.py` to generate the legitimate SQL queries for sub-plan queries. These SQL query generation files are hard-coded for these two datasets so they will work for a new dataset.
 
 ## Model Tuning
 
@@ -99,8 +99,7 @@ The estimation results can be found in `workloads/stats_CEB/sub_plan_queries/est
     - Paper:http://www.vldb.org/pvldb/vol12/p1044-dutt.pdf
 - Data-Driven Methods
   - Bayescard:
-    - Paper:https://arxiv.org/pdf/2012.14743.pdf
-    - Code:https://github.com/wuziniu/BayesCard
+    Anonymous
   - Neurocard
     - Paper:https://arxiv.org/pdf/2006.08109.pdf
     - Code:https://github.com/neurocard/neurocard
@@ -125,9 +124,4 @@ If you find the code useful, please cite our paper:
 }
 ```
 
-## Contact
-
-- Yuxing Han: **yuxing.hyx@alibaba-inc.com**
-
-- Ziniu Wu: **ziniu.wzn@alibaba-inc.com**
 
