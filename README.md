@@ -62,7 +62,7 @@ stats=# \i scripts/import/stats_index.sql
 
 ##  Integration of CardEst Methods into PostgreSQL
 
-1. Prepare [method].txt for a specific workload. An example for STATS-CEB is in `workloads/stats_CEB/sub_plan_queries/estimates`
+1. Prepare [method].txt for a specific workload. Each line in [method].txt represents an estimate of a *sub-plan query*. An example for STATS-CEB is in `workloads/stats_CEB/sub_plan_queries/estimates`
 
 2. Put [method].txt in the *data directory* of your Postgres. In this way, we can make sure Postgres could find [method].txt. Note that the path of data directory for docker deployment is `/var/lib/pgsql/13.1/data` in the container. The example command is:
 
