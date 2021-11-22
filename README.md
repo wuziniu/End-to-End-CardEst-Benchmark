@@ -49,8 +49,8 @@ You can import the STATS dataset into Postgres through psql. Note you must make 
 template1=# create database stats
 template1=# \c stats
 stats=# \i datasets/stats_simplified/stats.sql
-stats=# \i scipts/import/stats_load.sql
-stats=# \i scripts/import/stats_index.sql
+stats=# \i scipts/sql/stats_load.sql
+stats=# \i scripts/sql/stats_index.sql
 ```
 
 
@@ -75,10 +75,10 @@ stats=# \i scripts/import/stats_index.sql
 ```bash
 stats=# SET ml_cardest_enabled=true; ## for single table
 stats=# SET ml_joinest_enabled=true; ## for multi-table
-stats=# SET query_no=0 ##for single table
-stats=# SET join_est_no=0 ##for multi-table
-stats=# SET ml_cardest_fname='[method_for_single_table].txt' ## for single table
-stats=# SET ml_joinest_fname='[method_for_multi_table].txt' ## for multi-table
+stats=# SET query_no=0; ##for single table
+stats=# SET join_est_no=0; ##for multi-table
+stats=# SET ml_cardest_fname='[method_for_single_table].txt'; ## for single table
+stats=# SET ml_joinest_fname='[method_for_multi_table].txt'; ## for multi-table
 ```
 
 ## Model Tuning
